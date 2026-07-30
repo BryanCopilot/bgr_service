@@ -1,0 +1,834 @@
+/* ============================================================
+   BGR SERVICE — style.css (v2: identidad "elegante + técnica")
+   ------------------------------------------------------------
+   Cambios de fondo respecto a la v1:
+   - Paleta clara (marfil) con franjas en tinta oscura, en vez
+     de fondo oscuro general.
+   - Tipografía serif para títulos (Cormorant Garamond) que le
+     da el aire "boutique" que pediste.
+   - Se mantiene la fuente monoespaciada para precios y para la
+     "ficha técnica" (la ex-terminal), como guiño técnico.
+
+   Todo sigue controlado desde las variables de :root — si
+   quieres probar otra paleta, cambia los valores de acá arriba
+   y se actualiza el sitio entero.
+   ============================================================ */
+
+:root {
+  /* --- Base neutra --- */
+  --cream: #f6f8fb;         /* fondo general */
+  --cream-2: #ffffff;       /* secciones alternas */
+  --card: #ffffff;          /* tarjetas */
+  --line: #dbe2ea;          /* líneas divisorias */
+
+  /* --- Tonos oscuros (textos y fondo de íconos) --- */
+  --ink: #111827;           /* texto principal */
+  --ink-soft: #4b5563;      /* texto secundario */
+  --on-dark: #ffffff;       /* texto sobre fondo oscuro */
+  --on-dark-muted: #cbd5e1; /* texto sobre fondo oscuro */
+  --line-dark: rgba(17, 24, 39, 0.12);
+
+  /* --- Acento tecnológico --- */
+  --brass: #2064c0;
+  --brass-deep: #164d8e;
+  --brass-soft: rgba(32, 100, 192, 0.12);
+
+  /* --- Estado (solo para la ficha técnica) --- */
+  --ok: #6f8f6a;
+
+  /* --- Tipografía --- */
+  --font-display: "Cormorant Garamond", "Georgia", serif;
+  --font-body: "Jost", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "Consolas", monospace;
+
+  --radius: 4px;
+  --max-width: 1180px;
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-body);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section { padding: 96px 0; }
+.section-dark { background: var(--ink); color: var(--on-dark); }
+.section-alt { background: var(--cream-2); }
+
+.section-heading { max-width: 700px; margin-bottom: 56px; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--brass);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.section-heading h2 {
+  font-size: clamp(2.4rem, 4.2vw, 3.4rem);
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+.section-heading p { color: var(--ink-soft); font-size: 1.08rem; max-width: 620px; }
+
+.section-heading h2 {
+  font-size: clamp(2rem, 3.6vw, 2.9rem);
+  margin-bottom: 14px;
+}
+
+.section-heading p { color: var(--ink-soft); font-size: 1.05rem; }
+.section-dark .section-heading p { color: var(--on-dark-muted); }
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(32, 100, 192, 0.14); }
+
+.btn-primary { background: var(--brass); color: var(--on-dark); }
+.btn-whatsapp {
+  background: #25d366;
+  color: #0f3f22;
+  border-color: rgba(37, 211, 102, 0.25);
+}
+.btn-whatsapp:hover {
+  background: #1ebe5b;
+  color: #0f3f22;
+}
+.btn-ghost:hover { border-color: var(--brass); color: var(--brass-deep); }
+
+.section-dark .btn-ghost, .cta-band .btn-ghost { border-color: var(--on-dark-muted); color: var(--on-dark); }
+.section-dark .btn-ghost:hover, .cta-band .btn-ghost:hover { border-color: var(--brass); color: var(--brass); }
+
+/* ============================================================
+   HEADER / NAV
+   Franja oscura, fija arriba, con links espaciados en mayúscula
+   — el mismo lenguaje visual de la franja negra de tu referencia,
+   pero usado como navegación principal de todo el sitio.
+   ============================================================ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+  gap: 12px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+
+.logo-image {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  display: block;
+}
+
+.logo-text { display: inline-block; color: var(--ink); }
+.logo-mark { color: var(--brass); }
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.nav-links a { position: relative; color: var(--ink-soft); transition: color 0.15s ease; }
+.nav-links a:hover, .nav-links a.active { color: var(--ink); }
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -8px;
+  width: 100%; height: 1px;
+  background: var(--brass);
+}
+
+.nav-cta { display: flex; align-items: center; gap: 16px; }
+
+.nav-whatsapp {
+  width: auto;
+  height: auto;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  justify-content: center;
+  overflow: visible;
+}
+
+.nav-whatsapp:hover {
+  background: transparent;
+  transform: none;
+}
+
+.nav-whatsapp img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  display: block;
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.nav-toggle span { width: 24px; height: 1px; background: var(--ink); transition: background 0.15s ease; }
+.nav-toggle:hover span { background: var(--brass); }
+
+/* ============================================================
+   HERO FIJO ESTILO "GOOGLE SITES"
+   ------------------------------------------------------------
+   Cómo funciona (para que lo entiendas y lo puedas tocar):
+
+   1) ".hero-fixed" queda con position:fixed, ocupando toda la
+      pantalla (inset:0), por DETRÁS de todo (z-index bajo).
+      Al estar "fixed", NO se mueve cuando el usuario hace scroll.
+
+   2) Justo después en el HTML va ".hero-spacer", un bloque
+      vacío de altura 100vh. Su único trabajo es "empujar" hacia
+      abajo al resto del contenido real, para que al cargar la
+      página se vea SOLO el hero (como si fuera la portada).
+
+   3) ".page-content" es un contenedor con fondo sólido (crema)
+      que envuelve TODO el resto de la página. Como tiene fondo
+      sólido y aparece encima del hero (z-index mayor), al hacer
+      scroll se desliza hacia arriba y va TAPANDO el hero de a
+      poco — el efecto exacto que pediste.
+
+   Para cambiar la imagen de fondo del hero: reemplaza el valor
+   de --hero-image más abajo, o edita el atributo "style" del
+   div .hero-fixed en el HTML (así cada página puede tener una
+   imagen distinta si quieres).
+   ============================================================ */
+.hero-fixed {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--ink);
+}
+
+.hero-fixed::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(17, 24, 39, 0.42), rgba(17, 24, 39, 0.6));
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-fixed .hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: -1;
+  filter: brightness(0.68) contrast(1.05);
+}
+
+.hero-fixed .hero-copy {
+  position: relative;
+  z-index: 1;
+  color: var(--on-dark);
+  max-width: 720px;
+  padding: 0 24px;
+}
+
+.hero-fixed .eyebrow {
+  justify-content: center;
+  color: var(--brass-soft);
+  letter-spacing: 0.26em;
+  color: var(--on-dark-muted);
+  font-size: 1.05rem;
+  max-width: 460px;
+  margin: 0 auto 32px;
+}
+
+.hero-fixed .hero-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-spacer { height: 100vh; }
+
+.page-content {
+  position: relative;
+  z-index: 1;
+  background: var(--cream);
+}
+
+/* En páginas SIN hero fijo (servicios, contacto, etc.) no
+   necesitamos el truco de scroll — .page-content-flat se usa
+   ahí, simplemente como fondo normal. */
+.page-content-flat {
+  background: var(--cream);
+  padding-top: 8px;
+}
+
+/* Aviso pequeño para pantallas táctiles (iOS no soporta bien
+   el "fixed" de fondo dentro de scroll); ahí lo simplificamos. */
+@media (max-width: 760px) {
+  .hero-fixed { position: absolute; }
+  .hero-spacer { height: 78vh; }
+}
+
+/* ============================================================
+   FICHA TÉCNICA (ex "terminal")
+   Panel enmarcado, elegante, que simula un diagnóstico. Vive
+   en la sección de introducción, junto al texto de bienvenida.
+   ============================================================ */
+.tech-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  position: relative;
+}
+
+.tech-card::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid var(--line);
+  pointer-events: none;
+}
+
+.tech-card-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 26px;
+  border-bottom: 1px solid var(--line);
+}
+
+.tech-card-bar strong {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.tech-card-bar span {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--brass);
+}
+
+.tech-card-body {
+  padding: 26px 26px 32px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  min-height: 240px;
+  height: 270px;
+  overflow: hidden;
+}
+
+.tech-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+  opacity: 0;
+  animation: line-in 0.25s forwards;
+  color: var(--ink-soft);
+}
+
+.tech-line .status { color: var(--ok); font-weight: 600; }
+.tech-line .prompt { color: var(--brass); }
+
+.cursor {
+  display: inline-block;
+  width: 7px; height: 15px;
+  background: var(--brass);
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes line-in { to { opacity: 1; } }
+
+/* ============================================================
+   INTRO (hero-copy + ficha técnica), usado en la sección
+   inmediatamente después del hero fijo
+   ============================================================ */
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.intro-grid .hero-trust {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.hero-trust div { font-family: var(--font-mono); }
+.hero-trust strong { display: block; font-size: 1.3rem; }
+.hero-trust span { font-size: 0.76rem; color: var(--ink-soft); letter-spacing: 0.04em; }
+
+/* ============================================================
+   FRANJA DE COBERTURA
+   ============================================================ */
+.coverage {
+  background: var(--ink);
+  color: var(--on-dark-muted);
+}
+.coverage .container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 24px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+.coverage strong { color: var(--on-dark); }
+.coverage-tag {
+  padding: 5px 14px;
+  border: 1px solid var(--line-dark);
+  border-radius: 100px;
+}
+
+/* ============================================================
+   TARJETAS
+   ============================================================ */
+.grid { display: grid; gap: 28px; }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+.card {
+  background: var(--card);
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  padding: 32px;
+  border-radius: 24px;
+  box-shadow: 0 20px 45px rgba(17, 24, 39, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.card:hover { border-color: rgba(31, 96, 192, 0.2); transform: translateY(-4px); box-shadow: 0 24px 50px rgba(17, 24, 39, 0.08); }
+
+.card-icon { width: 38px; height: 38px; margin-bottom: 20px; color: var(--brass); }
+.card h3 { font-size: 1.2rem; margin-bottom: 10px; font-weight: 600; }
+.card p { color: var(--ink-soft); font-size: 0.95rem; }
+
+/* --- Servicio (hoja de datos) --- */
+.service-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 30px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.service-card + .service-card { margin-top: 18px; }
+
+.service-info h3 { font-size: 1.25rem; margin-bottom: 8px; font-weight: 600; }
+.service-info p { color: var(--ink-soft); font-size: 0.95rem; max-width: 560px; }
+
+.service-price { font-family: var(--font-mono); text-align: right; white-space: nowrap; }
+.service-price .amount { display: block; font-size: 1.3rem; color: var(--brass-deep); font-weight: 600; }
+.service-price .label { font-size: 0.68rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.1em; }
+
+.service-note { margin-top: 10px; font-size: 0.8rem; color: var(--brass-deep); }
+
+/* ============================================================
+   CARRUSEL DE TRABAJOS (Bootstrap)
+   Solo sobreescribimos lo justo para que combine con la
+   paleta — el comportamiento (flechas, indicadores, autoplay)
+   lo maneja Bootstrap solo.
+   ============================================================ */
+.work-carousel,
+.service-carousel {
+  border: 1px solid var(--line);
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.work-carousel .carousel-item,
+.service-carousel .carousel-item {
+  background: #020e1d;
+  overflow: hidden;
+}
+
+.work-carousel .carousel-item {
+  aspect-ratio: 16 / 8;
+}
+
+.work-carousel .carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  background: transparent;
+}
+
+.service-carousel .carousel-item img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  background: transparent;
+}
+
+.work-carousel .carousel-caption,
+.service-carousel .carousel-caption {
+  background: rgba(28, 24, 20, 0.55);
+  border-radius: var(--radius);
+  padding: 10px 20px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  right: auto;
+  width: max-content;
+  max-width: 90%;
+}
+
+.work-carousel .carousel-caption p,
+.service-carousel .carousel-caption p {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
+.work-carousel .carousel-control-prev,
+.work-carousel .carousel-control-next,
+.service-carousel .carousel-control-prev,
+.service-carousel .carousel-control-next {
+  width: auto;
+}
+
+.work-carousel .carousel-control-prev-icon,
+.work-carousel .carousel-control-next-icon,
+.service-carousel .carousel-control-prev-icon,
+.service-carousel .carousel-control-next-icon {
+  width: 44px;
+  height: 44px;
+  background-color: var(--ink);
+  border-radius: 50%;
+  padding: 10px;
+  background-size: 45%;
+}
+
+.work-carousel .carousel-indicators [data-bs-target],
+.service-carousel .carousel-indicators [data-bs-target] {
+  background-color: var(--ink);
+  opacity: 0.35;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 0;
+}
+
+.work-carousel .carousel-indicators .active,
+.service-carousel .carousel-indicators .active {
+  opacity: 1;
+  background-color: var(--brass);
+}
+
+/* placeholder interno de cada slide, mientras no hay fotos reales */
+.slide-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   CTA
+   ============================================================ */
+.cta-band {
+  background: var(--ink);
+  color: var(--on-dark);
+  padding: 64px;
+  text-align: center;
+}
+.cta-band h2 { font-size: clamp(1.8rem, 3.2vw, 2.5rem); margin-bottom: 16px; color: var(--on-dark); }
+.cta-band p { color: var(--on-dark-muted); margin-bottom: 30px; }
+.cta-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+  background: var(--ink);
+  color: var(--on-dark-muted);
+  padding: 56px 0 30px;
+  font-size: 0.9rem;
+}
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 36px; margin-bottom: 36px; }
+.footer-grid h4 {
+  color: var(--on-dark);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+.footer-grid ul li { margin-bottom: 9px; }
+.footer-grid a:hover { color: var(--brass); }
+
+.footer-bottom {
+  border-top: 1px solid var(--line-dark);
+  padding-top: 22px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.78rem;
+}
+
+/* ============================================================
+   CONTACTO
+   ============================================================ */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
+
+.contact-form {
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-group label { font-size: 0.78rem; letter-spacing: 0.05em; color: var(--ink-soft); text-transform: uppercase; }
+
+.form-group input, .form-group select, .form-group textarea {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 13px 14px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none; border-color: var(--brass);
+}
+
+.form-note { font-size: 0.8rem; color: var(--ink-soft); }
+
+.contact-info-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 36px;
+  margin-bottom: 24px;
+}
+.contact-info-card h3 { margin-bottom: 18px; font-size: 1.15rem; }
+
+.contact-row { display: flex; align-items: center; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--line); }
+.contact-row:last-child { border-bottom: none; }
+.contact-row .label { color: var(--ink-soft); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; min-width: 90px; }
+
+.map-frame { border: 1px solid var(--line); }
+.map-frame iframe { width: 100%; height: 260px; border: 0; filter: grayscale(1) contrast(0.95); }
+
+/* ============================================================
+   GALERÍA / TESTIMONIOS (referencias.html)
+   ============================================================ */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 8px;
+}
+.gallery-item {
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--line);
+  background: var(--card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(28, 24, 20, 0.04);
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  background: var(--cream);
+}
+
+.testimonial { background: var(--card); border: 1px solid var(--line); padding: 30px; }
+.testimonial p { color: var(--ink); margin-bottom: 18px; font-family: var(--font-display); font-size: 1.2rem; font-style: italic; }
+.testimonial .who { font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-soft); letter-spacing: 0.04em; }
+
+/* ============================================================
+   ACERCA DE
+   ============================================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.about-photo {
+  aspect-ratio: 3 / 4;
+  border: 1px solid var(--line);
+  background: var(--cream-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 24px;
+}
+
+.about-copy .eyebrow { margin-bottom: 14px; }
+.about-copy h2 { font-size: clamp(2rem, 3.4vw, 2.7rem); margin-bottom: 6px; }
+.about-copy .role {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--brass-deep);
+  letter-spacing: 0.04em;
+  margin-bottom: 24px;
+  display: block;
+}
+.about-copy p { color: var(--ink-soft); margin-bottom: 18px; font-size: 1.02rem; }
+
+.about-credentials {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.about-credentials div { font-family: var(--font-mono); }
+.about-credentials strong { display: block; font-size: 0.85rem; margin-bottom: 4px; }
+.about-credentials span { font-size: 0.76rem; color: var(--ink-soft); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .intro-grid,
+  .grid-3, .grid-2,
+  .footer-grid, .contact-grid,
+  .gallery, .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-photo { max-width: 320px; margin: 0 auto; }
+
+  .nav-links {
+    position: fixed;
+    top: 66px; left: 0; right: 0;
+    background: var(--ink);
+    border-bottom: 1px solid var(--line-dark);
+    flex-direction: column;
+    padding: 20px 24px;
+    display: none;
+    gap: 20px;
+  }
+  .nav-links a { color: var(--on-dark); }
+  .nav-links a:hover, .nav-links a.active { color: var(--brass); }
+  .nav-links.open { display: flex; }
+  .nav-toggle { display: flex; }
+
+  .cta-band { padding: 40px 24px; }
+}

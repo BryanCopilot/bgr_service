@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acerca de | BGR Service</title>
+  <meta name="description" content="Conoce a Bryan Guerra Reyes, técnico en conectividad y redes e ingeniero en informática en formación, fundador de BGR Service." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="logo">
+        <img src="imagenes/LOGOS/BGR.png" alt="Logo BGR Service" class="logo-image" />
+        <span class="logo-text">BGR SERVICE</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="referencias.html">Referencias</a>
+        <a href="acerca.html" class="active">Acerca de</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="https://wa.me/56935030713" target="_blank" class="btn btn-primary nav-whatsapp" aria-label="Enviar mensaje por WhatsApp">
+          <img src="imagenes/LOGOS/WSP.png" alt="WhatsApp" />
+        </a>
+        <button class="nav-toggle" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <section style="padding-top:72px;">
+    <div class="container about-grid">
+
+      <div class="about-photo"><img src="imagenes/ACERCA/PERSONAL.jpeg" alt="Bryan Guerra Reyes"></div>
+
+      <div class="about-copy">
+        <div class="eyebrow">Quién está detrás de BGR Service</div>
+        <h2>Bryan Guerra Reyes</h2>
+        <span class="role">Técnico en Conectividad y Redes · Ingeniero en Informática (en formación)</span>
+
+        <p>
+          Empecé arreglando computadores por curiosidad — el mismo tipo de
+          curiosidad que hoy me tiene estudiando Ingeniería en Informática
+          mientras trabajo como Técnico en Conectividad y Redes. Esa mezcla
+          es justamente lo que traigo a cada servicio: no solo cambio una
+          pieza o instalo un programa, entiendo por qué tu equipo está
+          fallando y te lo explico en palabras simples.
+        </p>
+        <p>
+          Fundé BGR Service porque veía a mucha gente en Curicó y la Región
+          del Maule postergando la mantención de su PC, notebook o consola
+          por miedo a un cobro excesivo o a no entender qué le estaban
+          haciendo. Mi manera de trabajar es la contraria: te muestro el
+          diagnóstico, te explico las opciones, y avanzamos solo cuando
+          tienes claridad total de lo que vas a pagar y por qué.
+        </p>
+        <p>
+          Hoy en día también me interesa mucho la inteligencia artificial
+          aplicada a la mantención predictiva de hardware — así que si tu
+          equipo te da problemas raros y quieres a alguien que además
+          disfruta entender la causa técnica de fondo, estás en el lugar
+          correcto.
+        </p>
+
+        <div class="about-credentials">
+          <div><strong>Formación</strong><span>Téc. en Conectividad y Redes</span></div>
+          <div><strong>En curso</strong><span>Ing. en Informática</span></div>
+          <div><strong>Zona</strong><span>Curicó, Región del Maule</span></div>
+        </div>
+
+        <div class="hero-actions" style="margin-top:32px;">
+          <a href="https://wa.me/56935030713" target="_blank" class="btn btn-whatsapp">Conversemos por WhatsApp</a>
+          <a href="contacto.html" class="btn btn-ghost">Ver formas de contacto</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container">
+      <div class="cta-band" style="background:var(--card); color:var(--ink); border:1px solid var(--line);">
+        <h2 style="color:var(--ink);">¿Tienes un equipo con un problema difícil de explicar?</h2>
+        <p style="color:var(--ink-soft);">Cuéntame los síntomas y te doy un primer diagnóstico sin costo.</p>
+        <div class="cta-actions">
+          <a href="https://wa.me/56935030713" target="_blank" class="btn btn-whatsapp">Escribir por WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>BGR Service</h4>
+          <p>Especialistas en armado, mantención y reparación de computadores, notebooks y consolas. Región del Maule.</p>
+        </div>
+        <div>
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="referencias.html">Referencias</a></li>
+            <li><a href="acerca.html">Acerca de</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contacto</h4>
+          <ul>
+            <li>+56 9 3503 0713</li>
+            <li>contacto.brguerra@gmail.com</li>
+            <li><a href="https://instagram.com/bgr_service" target="_blank">@bgr_service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year"></span> BGR Service. Todos los derechos reservados.</span>
+        <span>Curicó, Región del Maule, Chile.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="js/script.js"></script>
+</body>
+</html>
