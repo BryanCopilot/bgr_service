@@ -19,13 +19,32 @@ const navToggle = document.querySelector(".nav-toggle");
 const navLinks = document.querySelector(".nav-links");
 
 if (navToggle && navLinks) {
-  navToggle.addEventListener("click", () => {
-    navLinks.classList.toggle("open");
-  });
+  const overlay = document.createElement("div");
+  overlay.className = "nav-overlay";
+  document.body.appendChild(overlay);
+
+  const closeButton = document.createElement("button");
+  closeButton.className = "nav-close";
+  closeButton.setAttribute("aria-label", "Cerrar menú");
+  navLinks.prepend(closeButton);
+
+  const toggleMenu = () => {
+    const isOpen = navLinks.classList.toggle("open");
+    overlay.classList.toggle("active", isOpen);
+    document.body.classList.toggle("menu-open", isOpen);
+  };
+
+  navToggle.addEventListener("click", toggleMenu);
+  closeButton.addEventListener("click", toggleMenu);
+  overlay.addEventListener("click", toggleMenu);
 
   // Si el usuario toca un link del menú, lo cerramos automáticamente.
   navLinks.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => navLinks.classList.remove("open"));
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      overlay.classList.remove("active");
+      document.body.classList.remove("menu-open");
+    });
   });
 }
 
