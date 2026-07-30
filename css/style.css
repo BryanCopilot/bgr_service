@@ -848,6 +848,24 @@ body.menu-open { overflow: hidden; }
    RESPONSIVE
    ============================================================ */
 @media (max-width: 900px) {
+  .container { padding: 0 18px; }
+
+  .site-header {
+    border: 1px solid var(--line);
+    border-radius: 0 0 18px 18px;
+    overflow: hidden;
+    margin: 0 8px;
+  }
+
+  .site-header .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .nav {
+    padding: 14px 0;
+  }
+
   .intro-grid,
   .grid-3, .grid-2,
   .footer-grid, .contact-grid,
@@ -908,4 +926,56 @@ body.menu-open { overflow: hidden; }
   .nav-toggle { display: flex; }
 
   .cta-band { padding: 40px 24px; }
+
+  .contact-form,
+  .contact-info-card,
+  .map-frame {
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .contact-form,
+  .contact-info-card {
+    padding: 24px;
+  }
+
+  .contact-grid {
+    gap: 24px;
+  }
+
+  .site-footer {
+    padding: 44px 0 24px;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+  }
+
+  .footer-grid {
+    gap: 24px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1400px) and (orientation: portrait) {
+  .container {
+    max-width: 1120px;
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .contact-grid {
+    gap: 40px;
+  }
+
+  .contact-form,
+  .contact-info-card {
+    padding: 32px;
+  }
+
+  .site-footer {
+    padding: 56px 0 28px;
+  }
 }
