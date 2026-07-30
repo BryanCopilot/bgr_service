@@ -19,30 +19,43 @@ const navToggle = document.querySelector(".nav-toggle");
 const navLinks = document.querySelector(".nav-links");
 
 if (navToggle && navLinks) {
-  const overlay = document.createElement("div");
-  overlay.className = "nav-overlay";
-  document.body.appendChild(overlay);
+  const mobilePanel = document.createElement("div");
+  mobilePanel.className = "nav-mobile-panel";
 
-  const closeButton = document.createElement("button");
-  closeButton.className = "nav-close";
-  closeButton.setAttribute("aria-label", "Cerrar menú");
-  navLinks.prepend(closeButton);
+  navLinks.querySelectorAll("a").forEach((link) => {
+    const clone = link.cloneNode(true);
+    mobilePanel.appendChild(clone);
+  });
+
+  const header = document.querySelector(".site-header");
+  const navContainer = document.querySelector(".site-header .nav");
+
+  if (header && navContainer) {
+    navContainer.insertAdjacentElement("afterend", mobilePanel);
+  } else {
+    navToggle.insertAdjacentElement("afterend", mobilePanel);
+  }
+
+  const currentPage = window.location.pathname.split("/").pop() || "index.html";
+  mobilePanel.querySelectorAll("a").forEach((link) => {
+    const linkPage = link.getAttribute("href");
+    if (linkPage === currentPage) {
+      link.classList.add("active");
+    }
+  });
 
   const toggleMenu = () => {
-    const isOpen = navLinks.classList.toggle("open");
-    overlay.classList.toggle("active", isOpen);
+    const isOpen = mobilePanel.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", String(isOpen));
     document.body.classList.toggle("menu-open", isOpen);
   };
 
   navToggle.addEventListener("click", toggleMenu);
-  closeButton.addEventListener("click", toggleMenu);
-  overlay.addEventListener("click", toggleMenu);
 
-  // Si el usuario toca un link del menú, lo cerramos automáticamente.
-  navLinks.querySelectorAll("a").forEach((link) => {
+  mobilePanel.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
-      navLinks.classList.remove("open");
-      overlay.classList.remove("active");
+      mobilePanel.classList.remove("open");
+      navToggle.setAttribute("aria-expanded", "false");
       document.body.classList.remove("menu-open");
     });
   });
