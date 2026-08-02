@@ -1,18 +1,3 @@
-/* ============================================================
-   BGR SERVICE — style.css (v2: identidad "elegante + técnica")
-   ------------------------------------------------------------
-   Cambios de fondo respecto a la v1:
-   - Paleta clara (marfil) con franjas en tinta oscura, en vez
-     de fondo oscuro general.
-   - Tipografía serif para títulos (Cormorant Garamond) que le
-     da el aire "boutique" que pediste.
-   - Se mantiene la fuente monoespaciada para precios y para la
-     "ficha técnica" (la ex-terminal), como guiño técnico.
-
-   Todo sigue controlado desde las variables de :root — si
-   quieres probar otra paleta, cambia los valores de acá arriba
-   y se actualiza el sitio entero.
-   ============================================================ */
 
 :root {
   /* --- Base neutra --- */
@@ -22,7 +7,7 @@
   --line: #dbe2ea;          /* líneas divisorias */
 
   /* --- Tonos oscuros (textos y fondo de íconos) --- */
-  --ink: #111827;           /* texto principal */
+  --ink: #0a1327;           /* texto principal */
   --ink-soft: #4b5563;      /* texto secundario */
   --on-dark: #ffffff;       /* texto sobre fondo oscuro */
   --on-dark-muted: #cbd5e1; /* texto sobre fondo oscuro */
@@ -148,12 +133,7 @@ section { padding: 96px 0; }
 .section-dark .btn-ghost, .cta-band .btn-ghost { border-color: var(--on-dark-muted); color: var(--on-dark); }
 .section-dark .btn-ghost:hover, .cta-band .btn-ghost:hover { border-color: var(--brass); color: var(--brass); }
 
-/* ============================================================
-   HEADER / NAV
-   Franja oscura, fija arriba, con links espaciados en mayúscula
-   — el mismo lenguaje visual de la franja negra de tu referencia,
-   pero usado como navegación principal de todo el sitio.
-   ============================================================ */
+
 .site-header {
   position: sticky;
   top: 0;
@@ -248,6 +228,68 @@ section { padding: 96px 0; }
   display: block;
 }
 
+.floating-whatsapp {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: clamp(16px, 3vw, 28px);
+  z-index: 999;
+  width: clamp(56px, 8vw, 72px);
+  height: clamp(56px, 8vw, 72px);
+  border-radius: 50%;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  transition: transform 0.2s ease;
+  animation: whatsapp-wave 2s ease-in-out infinite;
+}
+
+.floating-whatsapp::before,
+.floating-whatsapp::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border: 2px solid rgba(37, 211, 102, 0.35);
+  border-radius: 50%;
+  animation: whatsapp-wave-ring 2s ease-out infinite;
+  pointer-events: none;
+}
+
+.floating-whatsapp::after {
+  animation-delay: 1s;
+}
+
+.floating-whatsapp:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+.floating-whatsapp img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 50%;
+}
+
+@keyframes whatsapp-wave {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes whatsapp-wave-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -259,31 +301,7 @@ section { padding: 96px 0; }
 .nav-toggle span { width: 24px; height: 1px; background: var(--ink); transition: background 0.15s ease; }
 .nav-toggle:hover span { background: var(--brass); }
 
-/* ============================================================
-   HERO FIJO ESTILO "GOOGLE SITES"
-   ------------------------------------------------------------
-   Cómo funciona (para que lo entiendas y lo puedas tocar):
 
-   1) ".hero-fixed" queda con position:fixed, ocupando toda la
-      pantalla (inset:0), por DETRÁS de todo (z-index bajo).
-      Al estar "fixed", NO se mueve cuando el usuario hace scroll.
-
-   2) Justo después en el HTML va ".hero-spacer", un bloque
-      vacío de altura 100vh. Su único trabajo es "empujar" hacia
-      abajo al resto del contenido real, para que al cargar la
-      página se vea SOLO el hero (como si fuera la portada).
-
-   3) ".page-content" es un contenedor con fondo sólido (crema)
-      que envuelve TODO el resto de la página. Como tiene fondo
-      sólido y aparece encima del hero (z-index mayor), al hacer
-      scroll se desliza hacia arriba y va TAPANDO el hero de a
-      poco — el efecto exacto que pediste.
-
-   Para cambiar la imagen de fondo del hero: reemplaza el valor
-   de --hero-image más abajo, o edita el atributo "style" del
-   div .hero-fixed en el HTML (así cada página puede tener una
-   imagen distinta si quieres).
-   ============================================================ */
 .hero-fixed {
   position: fixed;
   inset: 0;
@@ -861,20 +879,39 @@ section { padding: 96px 0; }
     overflow: visible;
   }
 
-  .work-carousel .carousel-item {
+  .work-carousel .carousel-item,
+  .service-carousel .carousel-item {
     aspect-ratio: auto;
-    min-height: 0;
+    min-height: 280px;
     background: transparent;
+  }
+
+  .work-carousel .carousel-item.active,
+  .work-carousel .carousel-item-next,
+  .work-carousel .carousel-item-prev,
+  .service-carousel .carousel-item.active,
+  .service-carousel .carousel-item-next,
+  .service-carousel .carousel-item-prev {
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  .work-carousel .carousel-item img {
-    width: auto;
+  .work-carousel .carousel-item img,
+  .service-carousel .carousel-item img {
+    width: 100%;
     max-width: 100%;
-    height: auto;
-    margin: 0 auto;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    margin: 0;
+  }
+
+  .work-carousel .carousel-caption,
+  .service-carousel .carousel-caption {
+    max-width: calc(100% - 32px);
+    width: auto;
+    padding: 10px 14px;
   }
 
   .nav-links {
@@ -896,7 +933,7 @@ section { padding: 96px 0; }
     border-bottom: 1px solid rgba(255,255,255,0.12);
     flex-direction: column;
     gap: 14px;
-    box-shadow: 0 18px 40px rgba(17, 24, 39, 0.18);
+    box-shadow: 0 18px 40px rgba(9, 15, 30, 0.18);
     z-index: 120;
   }
 
@@ -924,6 +961,17 @@ section { padding: 96px 0; }
 }
 
 @media (max-width: 760px) {
+  .floating-whatsapp {
+    width: 60px;
+    height: 60px;
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .contact-inline-whatsapp {
+    width: fit-content;
+  }
+
   .contact-grid {
     gap: 20px;
   }
@@ -945,37 +993,7 @@ section { padding: 96px 0; }
   }
 }
 
-.work-carousel {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-}
-
-.work-carousel .carousel-inner {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-
-.work-carousel .carousel-item {
-  position: relative;
-  display: none;
-  float: left;
-  width: 100%;
-  margin-right: -100%;
-  backface-visibility: hidden;
-  transition: transform 0.6s ease-in-out;
-}
-
-.work-carousel .carousel-item.active {
-  display: block;
-}
-
-.work-carousel .carousel-item img {
-  width: 100%;
-  height: auto;
-  max-height: 400px;
-  object-fit: cover;
-  display: block;
-  border-radius: 8px;
+.contact-inline-whatsapp {
+  width: fit-content;
+  margin-top: 8px;
 }
